@@ -28,10 +28,10 @@ public class User {
     private Date signUpDate;
 
     @OneToMany(mappedBy = "followRequestSender",cascade = CascadeType.ALL)
-    private List<Friendship> Followers;
+    private List<Friendship> followers;
 
     @OneToMany(mappedBy = "followRequestReceiver",cascade = CascadeType.ALL)
-    private List<Friendship> Followings;
+    private List<Friendship> followings;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Post> posts;
