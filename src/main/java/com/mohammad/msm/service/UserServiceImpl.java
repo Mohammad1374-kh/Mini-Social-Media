@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
 
-    @Transactional
+
     @Override
     public void createUser(User user) {
         userRepository.save(user);
@@ -47,22 +48,24 @@ public class UserServiceImpl implements UserService {
         return listOfUsers;
     }
 
-    @Transactional
+
     @Override
     public void UpdateUser(User user,Long id) {
 
-        User newUser = getUserById(user.getId())
-                .orElseThrow(() -> new NotFoundException("No User with this id" + id));
+        User editedUser = getUserById(id)
+                .orElseThrow(() -> new NotFoundException("No User with this id" + user.getId() ));
 
-        newUser.setId(user.getId());
+        editedUser.setUsername(user.getUsername());
+        editedUser.setFullName(user.getFullName());
+        editedUser.setSignUpDate(user.getSignUpDate());
+        //TODO: should new user's posts and followers be replaced too.
     }
 
-    @Transactional
+
     @Override
     public void deleteUser(User user,Long id) {
-
         getUserById(user.getId())
-                .orElseThrow(() -> new NotFoundException("No Product with this id" + id));
+                .orElseThrow(() -> new NotFoundException("No user with this id" + id));
         userRepository.deleteById(id);
     }
 

@@ -14,7 +14,7 @@ public interface UserService {
     Optional<User> getUserById(Long id);
     Optional<User> getUserByUsername(String username);
     List<User> getAllUsers();
-    void UpdateUser(User user,Long id);
+    void UpdateUser(User user,Long userId);
     void deleteUser(User user,Long id);
 
     Page<User> getListPagination(int page, int size);

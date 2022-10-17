@@ -5,12 +5,14 @@ import com.mohammad.msm.model.User;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public interface PostService {
 
-    void savePost(Post post);
-    Post getAPostOfAUserByPostIdAndUsername(Long postId,String username);
-    Post getAPostOfAUserByPostIdAndUserId(Long postId,Long userId);
+    void savePost(User user, String content);
+
+    Optional<Post>  getAPostOfAUserByPostId(Long postId);
 
     //Equals to findAllByUserId in repo
     List<Post> getAllPostsOfAUserById(Long userId);
@@ -18,9 +20,9 @@ public interface PostService {
     //Equals to findAllByUserUsername in repo
     List<Post> getAllPostsOfAUserByUsername(String username);
 
-    void UpdatePost(Post post);
+    void UpdatePost(Post post,Long postId);
 
-    void deletePost(Long id);
+    void deletePost(Long postId);
 
     //equals to findAll in repo
     Page<Post> getListPagination(int page, int size);
