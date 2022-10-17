@@ -15,4 +15,5 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
     List<Post> findAllByUserUsername(String username);
     Page<Post> findAll(Pageable pageable);
 
+
 }
