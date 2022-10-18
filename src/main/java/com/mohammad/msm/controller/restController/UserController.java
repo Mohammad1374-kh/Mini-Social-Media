@@ -1,5 +1,6 @@
 package com.mohammad.msm.controller.restController;
 
+import com.mohammad.msm.date.MyDate;
 import com.mohammad.msm.dto.UserDto;
 import com.mohammad.msm.mapper.UserMapper;
 import com.mohammad.msm.model.User;
@@ -33,7 +34,9 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createUser( @RequestBody UserDto userDto){
+//TODO: Adding logic for rejecting repetitive Usernames
 
+        userDto.setSignUpDateDto(MyDate.getCurrentDate());
         User user = userMapper.toUser(userDto);
         User addedUser = userService.createUser(user);
         //logger.info("User has been added");
