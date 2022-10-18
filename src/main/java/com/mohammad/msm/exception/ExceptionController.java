@@ -16,7 +16,12 @@ public class ExceptionController {
         ExceptionResponse response = new ExceptionResponse(e.getMessage());
         return response;
     }
-    /*public ResponseEntity<Object> NotFound(NotFoundException ex) {
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }*/
+
+    @ResponseBody
+    @ExceptionHandler(DuplicateContentException.class)
+    @ResponseStatus(HttpStatus.FOUND)
+    public ExceptionResponse handleDuplicateException(DuplicateContentException e) {
+        ExceptionResponse response = new ExceptionResponse(e.getMessage());
+        return response;
+    }
 }

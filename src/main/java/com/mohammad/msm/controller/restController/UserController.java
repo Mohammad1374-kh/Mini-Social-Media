@@ -2,6 +2,7 @@ package com.mohammad.msm.controller.restController;
 
 import com.mohammad.msm.date.MyDate;
 import com.mohammad.msm.dto.UserDto;
+import com.mohammad.msm.exception.DuplicateContentException;
 import com.mohammad.msm.exception.NotFoundException;
 import com.mohammad.msm.mapper.UserMapper;
 import com.mohammad.msm.model.User;
@@ -38,6 +39,7 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+
     @PostMapping(value = "/add-user" ,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,9 +55,8 @@ public class UserController {
             return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
         }
         else {
-            //TODO: temporary okay but have to be modified
-            return new ResponseEntity<>(userMapper.toUser(userDto), HttpStatus.FOUND);
-            //throw new DuplicateKeyException("user with the same username already exists!");
+           throw new DuplicateContentException("There is already a user with this username : "
+                   + userDto.getUsernameDto() + " in database");
         }
     }
 

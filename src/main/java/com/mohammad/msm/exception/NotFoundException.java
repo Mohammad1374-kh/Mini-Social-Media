@@ -22,15 +22,5 @@ public class NotFoundException extends RuntimeException{
     public void setMessage(String message) {
         this.message = message;
     }
-    /*@JsonProperty("message")
-    private String message;
-    public NotFoundException(String message) {
-        this.message = message;
-    }
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }*/
+
 }
