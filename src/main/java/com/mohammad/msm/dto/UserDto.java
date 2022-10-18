@@ -28,7 +28,7 @@ public class UserDto {
     private Date signUpDateDto;
 
     //TODO: Should I put unique validation? test it
-    @JsonProperty("Username")
+    @JsonProperty("username")
     @NotBlank
     @Size(min = 3, max = 32, message = "username must be between 3 to 32 characters.")
     private String UsernameDto;

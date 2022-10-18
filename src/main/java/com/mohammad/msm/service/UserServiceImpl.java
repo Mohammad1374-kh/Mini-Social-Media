@@ -51,15 +51,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void UpdateUser(User user,Long id) {
+    public void updateUser(User user,Long id) {
 
         User editedUser = getUserById(id)
-                .orElseThrow(() -> new NotFoundException("No User with this id" + user.getId() ));
+                .orElseThrow(() -> new NotFoundException("No User with this id" + id ));
 
         editedUser.setUsername(user.getUsername());
         editedUser.setFullName(user.getFullName());
         editedUser.setSignUpDate(user.getSignUpDate());
-        //TODO: should new user's posts and followers be replaced too.
+        //TODO: should new user's posts and followers be replaced too?
     }
 
 
