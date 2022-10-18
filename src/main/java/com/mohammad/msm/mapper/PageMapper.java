@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = PageDto.class )
+/*@Mapper(componentModel = "spring", uses = PageDto.class )
 public interface PageMapper {
 
 
@@ -27,4 +27,4 @@ public interface PageMapper {
 
     List<Page> toPageList(List<PageDto> pageDtoList);
 
-}
+}*/

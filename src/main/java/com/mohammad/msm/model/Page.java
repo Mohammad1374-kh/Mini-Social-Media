@@ -1,10 +1,12 @@
 package com.mohammad.msm.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
-
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Page {
 
     private long totalPage;

@@ -1,5 +1,6 @@
 package com.mohammad.msm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +18,11 @@ public class PostDto {
     //TODO: might be incomplete
 
     /*@NotBlank*/
+    @JsonProperty("content")
     private String contentDto;
 
     /*@NotBlank*/
+    @JsonProperty("createdDate")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date createdDateDto;
 }

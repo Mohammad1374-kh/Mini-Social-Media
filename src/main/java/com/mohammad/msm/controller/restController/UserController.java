@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +29,10 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
-    @PostMapping(value = "/add-user")
-    public ResponseEntity<User> addUser( @RequestBody UserDto userDto){
+    @PostMapping(value = "/add-user" ,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> createUser( @RequestBody UserDto userDto){
 
         User user = userMapper.toUser(userDto);
         User addedUser = userService.createUser(user);
