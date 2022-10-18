@@ -25,6 +25,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        /*Optional<User> userOptional=getUserById(user.getId());
+        if(userOptional.isPresent()){
+            //return createUser(user);
+        }
+        else*/
         return userRepository.save(user);
     }
 
