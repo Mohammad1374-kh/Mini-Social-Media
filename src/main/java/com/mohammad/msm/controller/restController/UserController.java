@@ -32,10 +32,19 @@ public class UserController {
     UserMapper userMapper;
 
 
+    //info : reading users from data base based on id
     @GetMapping(value="/info/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<User> info(@PathVariable("id") Long id) {
         User user = userService.getUserById(id)
                 .orElseThrow(()->new NotFoundException("No User with ID : "+id));
+        return ResponseEntity.ok().body(user);
+    }
+
+    //info : reading users from data base based on username
+    @GetMapping(value="/info-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<User> infoUsername(@PathVariable("username") String username) {
+        User user = userService.getUserByUsername(username)
+                .orElseThrow(()->new NotFoundException("No User with this username : "+username));
         return ResponseEntity.ok().body(user);
     }
 
