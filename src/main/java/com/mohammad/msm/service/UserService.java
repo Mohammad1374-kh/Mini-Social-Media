@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserService {
 
     //saving User
-    void createUser(User user);
+    User createUser(User user);
 
     Optional<User> getUserById(Long id);
     Optional<User> getUserByUsername(String username);

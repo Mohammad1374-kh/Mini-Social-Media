@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FriendshipDto {
-    @NotBlank
+    /*@NotBlank*/
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Boolean acceptedDto;
 }

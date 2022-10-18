@@ -13,7 +13,7 @@ public interface UserMapper {
 
     //mapping UserDto properties to User
     @Mapping(target = "fullNameDto",source = "fullName")
-    @Mapping(target = "UsernameDto",source = "Username")
+    @Mapping(target = "usernameDto",source = "username")
     @Mapping(target = "signUpDateDto",source = "signUpDate")
     UserDto toUserDto(User user);
 
@@ -21,7 +21,7 @@ public interface UserMapper {
 
 
     @Mapping(target = "fullName" ,source = "fullNameDto" )
-    @Mapping(target = "Username",source = "UsernameDto" )
+    @Mapping(target = "username",source = "usernameDto" )
     @Mapping(target = "signUpDate" ,source = "signUpDateDto")
     User toUser(UserDto userDto);
 

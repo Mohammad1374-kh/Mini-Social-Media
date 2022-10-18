@@ -16,10 +16,10 @@ import java.util.Date;
 public class PostDto {
     //TODO: might be incomplete
 
-    @NotBlank
+    /*@NotBlank*/
     private String contentDto;
 
-    @NotBlank
+    /*@NotBlank*/
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date createdDateDto;
 }
