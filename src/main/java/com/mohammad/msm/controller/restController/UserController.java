@@ -6,18 +6,13 @@ import com.mohammad.msm.exception.DuplicateContentException;
 import com.mohammad.msm.exception.NotFoundException;
 import com.mohammad.msm.mapper.UserMapper;
 import com.mohammad.msm.model.User;
-import com.mohammad.msm.repository.UserRepository;
 import com.mohammad.msm.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserController {
 
+    //TODO: Validations needed to be done
 
     @Autowired
     UserService userService;
@@ -75,6 +71,23 @@ public class UserController {
            throw new DuplicateContentException("There is already a user with this username : "
                    + userDto.getUsernameDto() + " in database");
         }
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
+
+        Optional<User> userOptional = userService.getUserById(id);
+        if(userOptional.isPresent()) //if there was a user with the given id
+        {
+            userService.deleteUserById(id);
+            return ResponseEntity.ok().body("The user with the given id :" + id + " has been deleted");
+        }
+        else{
+            throw new NotFoundException("There is not any user available with the given id : "
+                    + id + " in database");
+        }
+
     }
 
 
