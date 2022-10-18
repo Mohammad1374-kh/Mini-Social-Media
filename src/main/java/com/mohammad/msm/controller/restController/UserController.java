@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,6 +47,13 @@ public class UserController {
         User user = userService.getUserByUsername(username)
                 .orElseThrow(()->new NotFoundException("No User with this username : "+username));
         return ResponseEntity.ok().body(user);
+    }
+
+
+    //infoAll : reading all users from data base
+    @GetMapping(value="/list",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> infoAll() {
+       return userService.getAllUsers();
     }
 
 
