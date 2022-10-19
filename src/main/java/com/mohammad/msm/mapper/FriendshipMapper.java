@@ -9,12 +9,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = FriendshipDto.class )
 public interface FriendshipMapper {
-    @Mapping(target = "acceptedDto" ,source = "accepted" )
+
+    @Mapping(target = "createdDateDto" ,source = "createdDate" )
     FriendshipDto toFriendshipDto(Friendship friendship);
 
     List<FriendshipDto> toFriendshipDtoList(List<Friendship> friendshipList);
 
-    @Mapping(target = "accepted" ,source = "acceptedDto" )
+    @Mapping(target = "createdDate" ,source = "createdDateDto" )
     Friendship toFriendship(FriendshipDto friendshipDto);
 
     List<Friendship> toFriendshipList (List<FriendshipDto> friendshipDtoList);

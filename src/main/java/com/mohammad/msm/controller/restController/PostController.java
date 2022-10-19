@@ -32,7 +32,7 @@ public class PostController {
     @Autowired
     PostService postService;
 
-/*---------------------------Return All posts of a page by page's username ---------------------------------------------------------------*/
+/*---------------------------Return All posts of a page by page's username sorted---------------------------------------------------------------*/
 
     @GetMapping(value="/posts-list/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Set<Post>> showAllPostsByUsername(@PathVariable("username") String username) {
@@ -43,7 +43,7 @@ public class PostController {
 
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
-/*---------------------------Return All posts of a page by page's user Id ---------------------------------------------------------------*/
+/*---------------------------Return All posts of a page by page's user Id sorted---------------------------------------------------------------*/
 
     @GetMapping(value="/posts-list-Id/{userId}",produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Set<Post>> showAllPostsById(@PathVariable Long userId) {
