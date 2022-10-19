@@ -34,6 +34,18 @@ public class PostController {
     @Autowired
     PostService postService;
 
+/*---------------------------Return All posts of a page ---------------------------------------------------------------*/
+
+    @GetMapping(value="/posts-list/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Post>> postsAll(@PathVariable("username") String username) {
+        User user = userService.getUserByUsername(username)
+                .orElseThrow(()->new NotFoundException("No User with the given username! : "+username));
+
+        List<Post> postList = new ArrayList<Post>(user.getPosts());
+
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+
 /*---------------------------Publishing a new post by user's id ---------------------------------------------------------------*/
 
     @PutMapping(value = "/publish/{userId}" ,
@@ -65,7 +77,7 @@ public class PostController {
         Post newPost = postMapper.toPost(postDto);
         //setting post's content
         newPost.setContent(postDto.getContentDto());
-        List<Post> posts = new ArrayList<>(1);
+        List<Post> posts = new ArrayList<>();
         posts.add(newPost);
         //setting post to the user
         user.setPosts(posts);

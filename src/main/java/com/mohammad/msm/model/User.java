@@ -30,11 +30,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    /*@OneToMany(cascade = CascadeType.ALL)
-    private List<Friendship> followers;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Friendship> followings;*/
 
 
 }

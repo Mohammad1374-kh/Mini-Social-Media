@@ -13,12 +13,7 @@ public interface PostService {
     void savePost(User user, String content);
 
     Optional<Post>  getAPostOfAUserByPostId(Long postId);
-/*
-    //Equals to findAllByUserId in repo
-    List<Post> getAllPostsOfAUserById(Long userId);
 
-    //Equals to findAllByUserUsername in repo
-    List<Post> getAllPostsOfAUserByUsername(String username);*/
 
     void UpdatePost(Post post,Long postId);
 
