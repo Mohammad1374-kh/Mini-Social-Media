@@ -18,9 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/post")
@@ -37,33 +35,35 @@ public class PostController {
 /*---------------------------Return All posts of a page ---------------------------------------------------------------*/
 
     @GetMapping(value="/posts-list/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Post>> postsAll(@PathVariable("username") String username) {
+    ResponseEntity<Set<Post>> postsAll(@PathVariable("username") String username) {
         User user = userService.getUserByUsername(username)
                 .orElseThrow(()->new NotFoundException("No User with the given username! : "+username));
 
-        List<Post> postList = new ArrayList<Post>(user.getPosts());
+        Set<Post> postList = new HashSet<>(user.getPosts());
 
         return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
 /*---------------------------Publishing a new post by user's id ---------------------------------------------------------------*/
 
-    @PutMapping(value = "/publish/{userId}" ,
+    @PostMapping(value = "/publish/{userId}" ,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> publishPostByUserId(@RequestBody PostDto postDto,@PathVariable Long userId){
+    public ResponseEntity<Post> publishPostByUserId(@RequestBody PostDto postDto,@PathVariable Long userId){
 
-            User user = userService.getUserById(userId)
-                    .orElseThrow(()->new NotFoundException("No User with ID : "+userId));
+        User user = userService.getUserById(userId)
+                .orElseThrow(()->new NotFoundException("No User with ID : "+userId));
 
-            return new ResponseEntity<>(publishPost(user,postDto), HttpStatus.OK);
+
+        return new ResponseEntity<>(publishPost(user,postDto), HttpStatus.OK);
     }
+
 /*---------------------------Publishing a new post by user's username ---------------------------------------------------------------*/
 
-    @PutMapping(value = "/publish-by-username/{username}" ,
+    @PostMapping(value = "/publish-by-username/{username}" ,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> publishPostByUsername(@RequestBody PostDto postDto,@PathVariable String username){
+    public ResponseEntity<Post> publishPostByUsername(@RequestBody PostDto postDto,@PathVariable String username){
 
         User user = userService.getUserByUsername(username)
                 .orElseThrow(()->new NotFoundException("No User with the given username! : "+username));
@@ -71,18 +71,12 @@ public class PostController {
         return new ResponseEntity<>(publishPost(user,postDto), HttpStatus.OK);
     }
 
-    public User publishPost(User user,PostDto postDto){
-        //setting post's Creation date
+    public Post publishPost(User user,PostDto postDto){
         postDto.setCreatedDateDto(MyDate.getCurrentDate());
-        Post newPost = postMapper.toPost(postDto);
-        //setting post's content
-        newPost.setContent(postDto.getContentDto());
-        List<Post> posts = new ArrayList<>();
-        posts.add(newPost);
-        //setting post to the user
-        user.setPosts(posts);
+        Set<Post> Posts= user.getPosts();
+        Posts.add(postMapper.toPost(postDto));
 
-        return userService.createUser(user);
+        return postService.savePost(postDto);
     }
 
 }

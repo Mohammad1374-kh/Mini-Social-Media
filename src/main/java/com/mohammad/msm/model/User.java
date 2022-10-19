@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,10 +29,9 @@ public class User {
     @Column(name = "sign_up_date" ,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date signUpDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Post> posts;
-
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private Set<Post> posts =new HashSet<>();
 
 
 }
