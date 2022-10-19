@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = PostDto.class )
 public interface PostMapper {
@@ -14,11 +15,11 @@ public interface PostMapper {
     @Mapping(target = "createdDateDto" ,source = "createdDate" )
     PostDto toPostDto(Post post);
 
-    List<PostDto> toPostDtoList(List<Post> postList);
+    Set<PostDto> toPostDtoList(Set<Post> postList);
 
     @Mapping(target = "content" ,source = "contentDto" )
     @Mapping(target = "createdDate" ,source = "createdDateDto" )
     Post toPost(PostDto postDto);
 
-    List<Post> toPostList(List<PostDto> postDtoList);
+    Set<Post> toPostList(Set<PostDto> postDtoList);
 }

@@ -1,5 +1,6 @@
 package com.mohammad.msm.service;
 
+import com.mohammad.msm.dto.PostDto;
 import com.mohammad.msm.model.Post;
 import com.mohammad.msm.model.User;
 import org.springframework.data.domain.Page;
@@ -10,15 +11,10 @@ import java.util.OptionalInt;
 
 public interface PostService {
 
-    void savePost(User user, String content);
+    Post savePost(PostDto postDto);
 
     Optional<Post>  getAPostOfAUserByPostId(Long postId);
 
-    //Equals to findAllByUserId in repo
-    List<Post> getAllPostsOfAUserById(Long userId);
-
-    //Equals to findAllByUserUsername in repo
-    List<Post> getAllPostsOfAUserByUsername(String username);
 
     void UpdatePost(Post post,Long postId);
 

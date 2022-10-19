@@ -10,7 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,9 +35,10 @@ public class UserDto {
     @Size(min = 3, max = 32, message = "username must be between 3 to 32 characters.")
     private String UsernameDto;
 
-    private List<PostDto> postDtoList;
-    private List<FriendshipDto> FollowerDtoList;
-    private List<FriendshipDto> FollowingDtoList;
+    private Set<PostDto> postDtoList= new HashSet<>();
+
+    /*private List<FriendshipDto> FollowerDtoList;
+    private List<FriendshipDto> FollowingDtoList;*/
 
 
 }

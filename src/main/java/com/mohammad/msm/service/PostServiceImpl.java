@@ -1,6 +1,8 @@
 package com.mohammad.msm.service;
 
+import com.mohammad.msm.dto.PostDto;
 import com.mohammad.msm.exception.NotFoundException;
+import com.mohammad.msm.mapper.PostMapper;
 import com.mohammad.msm.model.Post;
 import com.mohammad.msm.model.User;
 import com.mohammad.msm.repository.PostRepository;
@@ -26,13 +28,13 @@ public class PostServiceImpl implements PostService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PostMapper postMapper;
 
     @Override
-    public void savePost(User user, String content) {
-        Post post = new Post();
-        post.setUser(user);
-        post.setContent(content);
-        postRepository.save(post);
+    public Post savePost(PostDto postDto) {
+
+        return postRepository.save(postMapper.toPost(postDto));
     }
 
 
@@ -43,15 +45,6 @@ public class PostServiceImpl implements PostService{
 
     }
 
-    @Override
-    public List<Post> getAllPostsOfAUserById(Long userId) {
-        return postRepository.findAllByUserId(userId);
-    }
-
-    @Override
-    public List<Post> getAllPostsOfAUserByUsername(String username) {
-        return postRepository.findAllByUserUsername(username);
-    }
 
 
     @Override

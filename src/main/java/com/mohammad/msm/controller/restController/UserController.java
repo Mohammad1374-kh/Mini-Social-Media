@@ -31,7 +31,8 @@ public class UserController {
     UserMapper userMapper;
 
 
-    //info : reading users from data base based on id
+/*-------------------------Reading users from data base based on id------------------------------------------------*/
+
     @GetMapping(value="/info/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<User> info(@PathVariable("id") Long id) {
         User user = userService.getUserById(id)
@@ -39,7 +40,8 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    //info : reading users from data base based on username
+/*-------------------------Reading users from data base based on username-----------------------------------------*/
+
     @GetMapping(value="/info-username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<User> infoUsername(@PathVariable("username") String username) {
         User user = userService.getUserByUsername(username)
@@ -47,13 +49,14 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+/*-------------------------Reading all users from data base-------------------------------------------------------*/
 
-    //infoAll : reading all users from data base
     @GetMapping(value="/list",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> infoAll() {
        return userService.getAllUsers();
     }
 
+/*---------------------------Creating a new users in DB---------------------------------------------------------------*/
 
     @PostMapping(value = "/add-user" ,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -74,59 +77,49 @@ public class UserController {
                    + userDto.getUsernameDto() + " in database");
         }
     }
-/*
 
-    //TODO: update method needs to be modified
+/*---------------------------Updating an existed user from DB---------------------------------------------------------------*/
+
+    //TODO: followers , followings and posts should be set when they created
     @PutMapping(value = "/update/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@PathVariable Long userId ,@RequestBody UserDto userDto) {
 
-        //check if there is any user is available with the given id
         User oldUser = userService.getUserById(userId)
-                .orElseThrow(()->new NotFoundException("There is not any user available with the given id : "
+                .orElseThrow(() -> new NotFoundException("There is not any user available with the given id : "
                         + userId + " in database to be updated!"));
 
-            String newUsername = userDto.getUsernameDto();
+        String newUsername = userDto.getUsernameDto();
+        //if the username did not change
+        if (newUsername.equalsIgnoreCase(oldUser.getUsername())) {
+            User newUser = updateContent(oldUser, userDto, userId);
+            return new ResponseEntity<>(newUser, HttpStatus.OK);
+        } else {//if the username changed
 
-            //if the username not changed
-            if(newUsername.equalsIgnoreCase(oldUser.getUsername())){
-                //transferring properties from old object to new one
-                userDto.setSignUpDateDto(oldUser.getSignUpDate());
-                User newUser = userMapper.toUser(userDto);
-                newUser.setId(userId);
-                //delete the old user in data base
-                userService.deleteUserById(userId);
-                //save the new user object
-                userService.createUser(newUser);
-                return new ResponseEntity<>(newUser, HttpStatus.ACCEPTED);
+                Optional<User> userOptional = userService.getUserByUsername(newUsername);
 
-            }
-            else {//if the username changed
-                Optional<User> userOptional=userService.getUserByUsername(newUsername);
-                if(userOptional.isPresent()){//check if the username value conflicts with other usernames
+                //checks if the username value conflicts with other usernames
+                if (userOptional.isPresent()) {
                     throw new DuplicateContentException("There is already a user with this username : "
                             + userDto.getUsernameDto() + " in database");
+                } else {//if the username changed but dose not have any conflict
+                    User newUser = updateContent(oldUser, userDto, userId);
+                    return new ResponseEntity<>(newUser, HttpStatus.OK);
                 }
 
-                else{//if the username changed but dose not have any conflict
-                    //transferring properties from old object to new one
-                    userDto.setSignUpDateDto(oldUser.getSignUpDate());
-                    User newUser = userMapper.toUser(userDto);
-                    newUser.setId(userId);
-                    //delete the old user in data base
-                    userService.deleteUserById(userId);
-                    //save the new user object
-                    userService.createUser(newUser);
-                    return new ResponseEntity<>(newUser, HttpStatus.ACCEPTED);
-                }
-
-            }
-
-            //TODO: followers , followings and posts should be set when they created
+        }
 
     }
-*/
+        public User updateContent(User user, UserDto userDto, Long userId){
+            userDto.setSignUpDateDto(user.getSignUpDate());
+            User newUser = userMapper.toUser(userDto);
+            newUser.setId(userId);
+            userService.createUser(newUser);
+            return newUser;
+        }
 
+/*---------------------------Deleting a user from DB---------------------------------------------------------------*/
+    //TODO: Delete user by username method
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
@@ -142,8 +135,6 @@ public class UserController {
                     + id + " in database");
         }
     }
-
-    //TODO: Delete user by username method
 
 
 

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -18,11 +19,12 @@ public class PostDto {
     //TODO: might be incomplete
 
     /*@NotBlank*/
+    @Lob
     @JsonProperty("content")
     private String contentDto;
 
     /*@NotBlank*/
     @JsonProperty("createdDate")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-DD")
     private Date createdDateDto;
 }
