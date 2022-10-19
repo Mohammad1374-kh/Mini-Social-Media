@@ -23,6 +23,6 @@ public class PostDto {
 
     /*@NotBlank*/
     @JsonProperty("createdDate")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-DD")
     private Date createdDateDto;
 }
