@@ -32,12 +32,23 @@ public class PostController {
     @Autowired
     PostService postService;
 
-/*---------------------------Return All posts of a page ---------------------------------------------------------------*/
+/*---------------------------Return All posts of a page by page's username ---------------------------------------------------------------*/
 
     @GetMapping(value="/posts-list/{username}",produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Set<Post>> postsAll(@PathVariable("username") String username) {
+    ResponseEntity<Set<Post>> showAllPostsByUsername(@PathVariable("username") String username) {
         User user = userService.getUserByUsername(username)
                 .orElseThrow(()->new NotFoundException("No User with the given username! : "+username));
+
+        Set<Post> postList = new HashSet<>(user.getPosts());
+
+        return new ResponseEntity<>(postList, HttpStatus.OK);
+    }
+/*---------------------------Return All posts of a page by page's user Id ---------------------------------------------------------------*/
+
+    @GetMapping(value="/posts-list-Id/{userId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Set<Post>> showAllPostsById(@PathVariable Long userId) {
+        User user = userService.getUserById(userId)
+                .orElseThrow(()->new NotFoundException("No User with the given username! : "+ userId));
 
         Set<Post> postList = new HashSet<>(user.getPosts());
 
