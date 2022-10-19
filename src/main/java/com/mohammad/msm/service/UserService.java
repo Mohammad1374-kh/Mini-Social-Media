@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface UserService {
 
     //saving User
-    void createUser(User user);
+    User createUser(User user);
 
     Optional<User> getUserById(Long id);
     Optional<User> getUserByUsername(String username);
     List<User> getAllUsers();
-    void UpdateUser(User user,Long userId);
-    void deleteUser(User user,Long id);
+    void updateUser(User user,Long userId);
+    void deleteUserById(Long id);
 
     Page<User> getListPagination(int page, int size);
 }

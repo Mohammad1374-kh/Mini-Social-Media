@@ -1,5 +1,6 @@
 package com.mohammad.msm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,8 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FriendshipDto {
-    @NotBlank
+    /*@NotBlank*/
+    @JsonProperty("accepted")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Boolean acceptedDto;
 }

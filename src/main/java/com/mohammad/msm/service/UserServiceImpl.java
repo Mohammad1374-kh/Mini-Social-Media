@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void createUser(User user) {
-        userRepository.save(user);
+    public User createUser(User user) {
+
+        return userRepository.save(user);
     }
 
     @Override
@@ -50,21 +51,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void UpdateUser(User user,Long id) {
+    public void updateUser(User user,Long id) {
 
         User editedUser = getUserById(id)
-                .orElseThrow(() -> new NotFoundException("No User with this id" + user.getId() ));
+                .orElseThrow(() -> new NotFoundException("No User with this id" + id ));
 
         editedUser.setUsername(user.getUsername());
         editedUser.setFullName(user.getFullName());
         editedUser.setSignUpDate(user.getSignUpDate());
-        //TODO: should new user's posts and followers be replaced too.
+        //TODO: should new user's posts and followers be replaced too?
     }
 
 
     @Override
-    public void deleteUser(User user,Long id) {
-        getUserById(user.getId())
+    public void deleteUserById(Long id) {
+        getUserById(id)
                 .orElseThrow(() -> new NotFoundException("No user with this id" + id));
         userRepository.deleteById(id);
     }

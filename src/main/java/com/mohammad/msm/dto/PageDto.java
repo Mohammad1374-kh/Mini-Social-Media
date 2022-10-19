@@ -1,10 +1,13 @@
 package com.mohammad.msm.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PageDto {
     private long totalPageDto;
     private long currentPageDto;
