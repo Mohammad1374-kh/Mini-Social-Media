@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -80,7 +79,6 @@ public class UserController {
 
 /*---------------------------Updating an existed user from DB---------------------------------------------------------------*/
 
-    //TODO: followers , followings and posts should be set when they created
     @PutMapping(value = "/update/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@PathVariable Long userId ,@RequestBody UserDto userDto) {

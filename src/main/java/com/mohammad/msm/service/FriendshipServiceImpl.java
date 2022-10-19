@@ -2,7 +2,6 @@ package com.mohammad.msm.service;
 
 import com.mohammad.msm.date.MyDate;
 import com.mohammad.msm.dto.UserDto;
-import com.mohammad.msm.exception.NotFoundException;
 import com.mohammad.msm.mapper.UserMapper;
 import com.mohammad.msm.model.Friendship;
 import com.mohammad.msm.model.User;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -50,8 +50,7 @@ public class FriendshipServiceImpl implements FriendshipService {
     }
 
     public List<User> getFriends(User currentUser){
-       /* UserDto currentUserDto = securityService.getUser();
-        User currentUser = userRepository.findUserById(userMapper.toUser(currentUserDto).getId());*/
+
         List<Friendship> friendsByFirstUser = friendshipRepository.findByFirstUser(currentUser);
         List<Friendship> friendsBySecondUser = friendshipRepository.findBySecondUser(currentUser);
         List<User> friendUsers = new ArrayList<>();
@@ -63,5 +62,15 @@ public class FriendshipServiceImpl implements FriendshipService {
             friendUsers.add(userRepository.findUserById(friend.getFirstUser().getId()));
         }
         return friendUsers;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        friendshipRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Friendship> getFriendshipById(Long friendshipId) {
+        return friendshipRepository.findById(friendshipId);
     }
 }

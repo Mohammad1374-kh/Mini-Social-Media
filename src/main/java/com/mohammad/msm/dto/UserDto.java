@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,16 +28,13 @@ public class UserDto {
     @DateTimeFormat(pattern = "yyyy-MM-DD")
     private Date signUpDateDto;
 
-    //TODO: Should I put unique validation? test it
+    //TODO:unique validation
     @JsonProperty("username")
     @NotBlank
     @Size(min = 3, max = 32, message = "username must be between 3 to 32 characters.")
     private String UsernameDto;
 
     private Set<PostDto> postDtoList= new HashSet<>();
-
-    /*private List<FriendshipDto> FollowerDtoList;
-    private List<FriendshipDto> FollowingDtoList;*/
 
 
 }

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/friendship")
@@ -27,6 +28,7 @@ public class FriendshipController {
     UserService userService;
     @Autowired
     UserMapper userMapper;
+/*----------------------------------Making to pages follow each other--------------------------------------------------------*/
 
     @PostMapping(value = "/follow-friend/{friendId}" ,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -38,6 +40,18 @@ public class FriendshipController {
         String message = "Pages "+user.getUsername()+" and "+ userDto.getUsernameDto() +" followed each other" ;
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
+/*----------------------------------Making to pages unfollow each other--------------------------------------------------------*/
+//TODO: logic needs to be modified
+    @DeleteMapping("/unfollow-friends/{friendshipId}")
+    public ResponseEntity<String> unfollowUser(@PathVariable Long friendshipId ) {
+
+        Friendship friendship = friendshipService.getFriendshipById(friendshipId)
+                .orElseThrow(()->new NotFoundException("No User with ID : "+ friendshipId));
+
+        friendshipService.deleteById(friendshipId);
+        return new ResponseEntity<>("Pages unfollowed!", HttpStatus.OK);
+    }
+/*----------------------------------list of friendships--------------------------------------------------------*/
 
     @GetMapping(value = "/listFriends/{username}" , produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getFriends(@PathVariable String username) {

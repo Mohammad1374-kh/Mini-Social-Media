@@ -4,8 +4,6 @@ import com.mohammad.msm.dto.PostDto;
 import com.mohammad.msm.model.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = PostDto.class )
