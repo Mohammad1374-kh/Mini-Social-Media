@@ -48,10 +48,9 @@ public class PostController {
             Post newPost = postMapper.toPost(postDto);
             //setting post's content
             newPost.setContent(postDto.getContentDto());
-            //setting post to the user
-            newPost.setUser(user);
             List<Post> posts = new ArrayList<>(1);
             posts.add(newPost);
+            //setting post to the user
             user.setPosts(posts);
 
             return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);

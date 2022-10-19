@@ -16,6 +16,6 @@ import javax.validation.constraints.NotBlank;
 public class FriendshipDto {
     /*@NotBlank*/
     @JsonProperty("accepted")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-DD")
     private Boolean acceptedDto;
 }

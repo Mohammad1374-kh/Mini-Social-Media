@@ -30,7 +30,6 @@ public class PostServiceImpl implements PostService{
     @Override
     public void savePost(User user, String content) {
         Post post = new Post();
-        post.setUser(user);
         post.setContent(content);
         postRepository.save(post);
     }
@@ -43,7 +42,7 @@ public class PostServiceImpl implements PostService{
 
     }
 
-    @Override
+    /*@Override
     public List<Post> getAllPostsOfAUserById(Long userId) {
         return postRepository.findAllByUserId(userId);
     }
@@ -51,7 +50,7 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<Post> getAllPostsOfAUserByUsername(String username) {
         return postRepository.findAllByUserUsername(username);
-    }
+    }*/
 
 
     @Override

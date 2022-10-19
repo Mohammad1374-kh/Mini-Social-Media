@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-    List<Post> findAllByUserId(Long id);
-    List<Post> findAllByUserUsername(String username);
+    /*List<Post> findAllByUserId(Long id);
+    List<Post> findAllByUserUsername(String username);*/
     Page<Post> findAll(Pageable pageable);
 
     Post findPostById(Long postId);

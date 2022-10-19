@@ -34,8 +34,9 @@ public class UserDto {
     private String UsernameDto;
 
     private List<PostDto> postDtoList;
-    private List<FriendshipDto> FollowerDtoList;
-    private List<FriendshipDto> FollowingDtoList;
+
+    /*private List<FriendshipDto> FollowerDtoList;
+    private List<FriendshipDto> FollowingDtoList;*/
 
 
 }

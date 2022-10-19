@@ -27,12 +27,14 @@ public class User {
     @Column(name = "sign_up_date" ,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date signUpDate;
 
-    @OneToMany(mappedBy = "followRequestSender",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Post> posts;
+
+    /*@OneToMany(cascade = CascadeType.ALL)
     private List<Friendship> followers;
 
-    @OneToMany(mappedBy = "followRequestReceiver",cascade = CascadeType.ALL)
-    private List<Friendship> followings;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Friendship> followings;*/
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Post> posts;
+
 }
