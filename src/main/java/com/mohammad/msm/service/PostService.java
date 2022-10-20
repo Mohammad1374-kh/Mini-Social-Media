@@ -20,6 +20,5 @@ public interface PostService {
 
     void deletePost(Long postId);
 
-    //equals to findAll in repo
     Page<Post> getListPagination(int page, int size);
 }

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         editedUser.setUsername(user.getUsername());
         editedUser.setFullName(user.getFullName());
         editedUser.setSignUpDate(user.getSignUpDate());
-        //TODO: should new user's posts and followers be replaced too?
+
     }
 
 

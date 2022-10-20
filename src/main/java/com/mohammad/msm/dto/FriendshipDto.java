@@ -7,15 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FriendshipDto {
-    /*@NotBlank*/
-    @JsonProperty("accepted")
+
+    @JsonProperty("createdDate")
     @DateTimeFormat(pattern = "yyyy-MM-DD")
-    private Boolean acceptedDto;
+    private Date createdDateDto;
+
+
+
+
 }
