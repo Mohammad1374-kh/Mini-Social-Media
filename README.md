@@ -1,4 +1,5 @@
 # Mini-Social-Media
+Developed By Mohammad Khosravi
 
 A mini social media with the ability of publishing posts, Follow and unfollow friends and CRUD operations.
 
